@@ -1,6 +1,7 @@
 $first-Color:#2980b9;
 $second-Color:#fff;
-
+$third-Color: linear-gradient(180deg, white, skyblue);
+ 
 .container{
     max-width: 920px;
     margin: 0 auto;
@@ -15,3 +16,20 @@ $second-Color:#fff;
     font-family: 'Poppins', sans-serif;
 }
 
+.botonIgual{
+    background: radial-gradient(white, skyblue);
+}
+
+.botonNumeros{
+    background: $second-Color;
+}
+
+.botonOperaciones{
+    background: $third-Color;
+}
+
+.ejercicios{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 70px;
+}

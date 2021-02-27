@@ -1,30 +1,28 @@
-//Declaramos variables
 var operandoa;
 var operandob;
 var operacion;
 
-function init() {
-    //variables
-    var resultado = document.getElementById('resultado');
-    var reset = document.getElementById('reset');
-    var suma = document.getElementById('suma');
-    var resta = document.getElementById('resta');
-    var multiplicacion = document.getElementById('multiplicacion');
-    var division = document.getElementById('division');
-    var igual = document.getElementById('igual');
-    var uno = document.getElementById('uno');
-    var dos = document.getElementById('dos');
-    var tres = document.getElementById('tres');
-    var cuatro = document.getElementById('cuatro');
-    var cinco = document.getElementById('cinco');
-    var seis = document.getElementById('seis');
-    var siete = document.getElementById('siete');
-    var ocho = document.getElementById('ocho');
-    var nueve = document.getElementById('nueve');
-    var cero = document.getElementById('cero');
-}
+var resultado = document.getElementById('resultado');
+var reset = document.getElementById('reset');
+var suma = document.getElementById('suma');
+var resta = document.getElementById('resta');
+var multiplicacion = document.getElementById('multiplicacion');
+var division = document.getElementById('division');
+var potencia = document.getElementById('potencia');
+var resto = document.getElementById('resto');
+var igual = document.getElementById('igual');
+var uno = document.getElementById('uno');
+var dos = document.getElementById('dos');
+var tres = document.getElementById('tres');
+var cuatro = document.getElementById('cuatro');
+var cinco = document.getElementById('cinco');
+var seis = document.getElementById('seis');
+var siete = document.getElementById('siete');
+var ocho = document.getElementById('ocho');
+var nueve = document.getElementById('nueve');
+var cero = document.getElementById('cero');
 
-//Eventos de click
+
 uno.onclick = function (e) {
     resultado.textContent = resultado.textContent + "1";
 }
@@ -78,6 +76,17 @@ division.onclick = function (e) {
     operacion = "/";
     limpiar();
 }
+potencia.onclick = function (e) {
+    operandoa = resultado.textContent;
+    operacion = "x²";
+    limpiar();
+}
+resto.onclick = function (e) {
+    operandoa = resultado.textContent;
+    operacion = "%";
+    limpiar();
+}
+
 igual.onclick = function (e) {
     operandob = resultado.textContent;
     resolver();
@@ -107,6 +116,12 @@ function resolver() {
             break;
         case "/":
             res = parseFloat(operandoa) / parseFloat(operandob);
+            break;
+        case "x²":
+            res = parseFloat(operandoa) ** parseFloat(operandob);
+            break;
+        case "%":
+            res = parseFloat(operandoa) % parseFloat(operandob);
             break;
     }
     resetear();
