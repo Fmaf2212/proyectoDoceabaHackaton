@@ -1,65 +1,64 @@
 const todoForm = document.querySelector(".todo-form");
 const todoList = document.querySelector(".todo-list");
-const totalTasks = document.querySelector(".total-tasks span");
-const completedTasks = document.querySelector(".completed-tasks span");
-const remainingTasks = document.querySelector(".remaining-tasks span");
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+const totalTareas = document.querySelector(".total-tareas span");
+const completedTareas = document.querySelector(".completed-tareas span");
+const remainingTareas = document.querySelector(".remaining-tareas span");
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 
-if (localStorage.getItem("tasks")) {
-  tasks.map((task) => {
-    createTask(task);
-  });
+if (localStorage.getItem("tareas")) {
+    tareas.map((tarea) => {
+        createTask(tarea);
+    });
 }
 
 todoForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const input = this.name;
-  const inputValue = input.value;
+    e.preventDefault();
+    const input = this.name;
+    const inputValue = input.value;
 
-  if (inputValue != "") {
-    const task = {
-      id: new Date().getTime(),
-      name: inputValue,
-      isCompleted: false
-    };
+    if (inputValue != "") {
+        const tarea = {
+            id: new Date().getTime(),
+            name: inputValue,
+            isCompleted: false
+        };
 
-    tasks.push(task);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    createTask(task);
-    todoForm.reset();
-  }
-  input.focus();
+        tareas.push(tarea);
+        localStorage.setItem("tareas", JSON.stringify(tareas));
+        createTarea(tarea);
+        todoForm.reset();
+    }
+    input.focus();
 });
 
 
 todoList.addEventListener("click", (e) => {
-  if (e.target.classList.contains("remove-task") || e.target.parentElement.classList.contains("remove-task")
-  ) {
-    const taskId = e.target.closest("li").id;
-    removeTask(taskId);
-  }
+    if (e.target.classList.contains("remove-tarea") || e.target.parentElement.classList.contains("remove-tarea")
+    ) {
+        const tareaId = e.target.closest("li").id;
+        removeTarea(tareaId);
+    }
 });
 
 todoList.addEventListener("input", (e) => {
-  const taskId = e.target.closest("li").id;
-  updateTask(taskId, e.target);
+    const tareaId = e.target.closest("li").id;
+    updateTask(tareaId, e.target);
 });
 
 todoList.addEventListener("keydown", function (e) {
-  if (e.keyCode === 13) {
-    e.preventDefault();
-  }
+    if (e.keyCode === 13) {
+        e.preventDefault();
+    }
 });
 
-function createTask(task) {
-  const taskEl = document.createElement("li");
-  taskEl.setAttribute("id", task.id);
-  const taskElMarkup = `
+function createTarea(tarea) {
+    const tareaElemento = document.createElement("li");
+    tareaElemento.setAttribute("id", tarea.id);
+    const tareaElementoMargen = `
     <div class="checkbox-wrapper">
-      <input type="checkbox" id="${task.name}-${task.id}" name="tasks" ${
-    task.isCompleted ? "checked" : ""
-  }>
-      <label for="${task.name}-${task.id}">
+      <input type="checkbox" id="${tarea.name}-${tarea.id}" name="tasks" ${tarea.isCompleted ? "checked" : ""
+        }>
+      <label for="${tarea.name}-${tarea.id}">
         <svg class="checkbox-empty">
           <use xlink:href="#checkbox_empty"></use>
         </svg>
@@ -67,49 +66,49 @@ function createTask(task) {
           <use xlink:href="#checkmark"></use>
         </svg>
       </label>
-      <span ${!task.isCompleted ? "contenteditable" : ""}>${task.name}</span>
+      <span ${!tarea.isCompleted ? "contenteditable" : ""}>${tarea.name}</span>
     </div>
-    <button class="remove-task" title="Remove ${task.name} task">
+    <button class="remove-tarea" title="Remove ${tarea.name} task">
       <svg>
         <use xlink:href="#close"></use>
       </svg>
     </button>
   `;
-  taskEl.innerHTML = taskElMarkup;
-  todoList.appendChild(taskEl);
-  countTasks();
+    tareaElemento.innerHTML = tareaElementoMargen;
+    todoList.appendChild(tareaElemento);
+    countTareas();
 }
 
-function removeTask(taskId) {
-  tasks = tasks.filter((task) => task.id !== parseInt(taskId));
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  document.getElementById(taskId).remove();
-  countTasks();
+function removeTarea(tareaId) {
+    tareas = tareas.filter((tarea) => tarea.id !== parseInt(tareaId));
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+    document.getElementById(tareaId).remove();
+    countTareas();
 }
 
-function updateTask(taskId, el) {
-  const task = tasks.find((task) => task.id === parseInt(taskId));
+function updateTask(tareaId, el) {
+    const tarea = tareas.find((tarea) => tarea.id === parseInt(tareaId));
 
-  if (el.hasAttribute("contentEditable")) {
-    task.name = el.textContent;
-  } else {
-    const span = el.nextElementSibling.nextElementSibling;
-    task.isCompleted = !task.isCompleted;
-    if (task.isCompleted) {
-      span.removeAttribute("contenteditable");
-      el.setAttribute("checked", "");
+    if (el.hasAttribute("contentEditable")) {
+        tarea.name = el.textContent;
     } else {
-      el.removeAttribute("checked");
-      span.setAttribute("contenteditable", "");
+        const span = el.nextElementSibling.nextElementSibling;
+        tarea.isCompleted = !tarea.isCompleted;
+        if (tarea.isCompleted) {
+            span.removeAttribute("contenteditable");
+            el.setAttribute("checked", "");
+        } else {
+            el.removeAttribute("checked");
+            span.setAttribute("contenteditable", "");
+        }
     }
-  }
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  countTasks();
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+    countTareas();
 }
 
-function countTasks() {
-  totalTasks.textContent = tasks.length;
-  const completedTasksArray = tasks.filter((task) => task.isCompleted === true);
-  completedTasks.textContent = completedTasksArray.length;
-  remainingTasks.textContent = tasks.length - completedTasksArray.length;
+function countTareas() {
+    totalTareas.textContent = tareas.length;
+    const completedTareasArray = tareas.filter((tarea) => tarea.isCompleted === true);
+    completedTareas.textContent = completedTareasArray.length;
+    remainingTareas.textContent = tareas.length - completedTareasArray.length;
 }

@@ -27,6 +27,13 @@
 .botonOperaciones {
   background: -webkit-gradient(linear, left top, left bottom, from(white), to(skyblue));
   background: linear-gradient(180deg, white, skyblue);
+  -webkit-transition: 1s all;
+  transition: 1s all;
+}
+
+.botonOperaciones:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#ADD5ED));
+  background: linear-gradient(180deg, white, #ADD5ED);
 }
 
 .ejercicios {
@@ -275,14 +282,14 @@ body {
   opacity: 0.5;
 }
 
-.todo-list .remove-task {
+.todo-list .remove-tarea {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 2px;
 }
 
-.todo-list .remove-task svg {
+.todo-list .remove-tarea svg {
   width: 16px;
   height: 16px;
 }

@@ -1,6 +1,7 @@
 $first-Color:#2980b9;
 $second-Color:#fff;
 $third-Color: linear-gradient(180deg, white, skyblue);
+$fourth-Color: linear-gradient(180deg, white, #ADD5ED);
  
 .container{
     max-width: 920px;
@@ -26,6 +27,11 @@ $third-Color: linear-gradient(180deg, white, skyblue);
 
 .botonOperaciones{
     background: $third-Color;
+    transition: 1s all;
+}
+
+.botonOperaciones:hover{
+    background: $fourth-Color;
 }
 
 .ejercicios{
