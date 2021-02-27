@@ -11,7 +11,6 @@ if (localStorage.getItem("tasks")) {
   });
 }
 
-// submit form
 todoForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const input = this.name;
@@ -32,31 +31,26 @@ todoForm.addEventListener("submit", function (e) {
   input.focus();
 });
 
-// remove task
+
 todoList.addEventListener("click", (e) => {
-  if (
-    e.target.classList.contains("remove-task") ||
-    e.target.parentElement.classList.contains("remove-task")
+  if (e.target.classList.contains("remove-task") || e.target.parentElement.classList.contains("remove-task")
   ) {
     const taskId = e.target.closest("li").id;
     removeTask(taskId);
   }
 });
 
-// update task - change status or name
 todoList.addEventListener("input", (e) => {
   const taskId = e.target.closest("li").id;
   updateTask(taskId, e.target);
 });
 
-// prevent new lines with Enter
 todoList.addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
     e.preventDefault();
   }
 });
 
-// create task
 function createTask(task) {
   const taskEl = document.createElement("li");
   taskEl.setAttribute("id", task.id);
@@ -86,7 +80,6 @@ function createTask(task) {
   countTasks();
 }
 
-// remove task
 function removeTask(taskId) {
   tasks = tasks.filter((task) => task.id !== parseInt(taskId));
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -94,7 +87,6 @@ function removeTask(taskId) {
   countTasks();
 }
 
-// update task
 function updateTask(taskId, el) {
   const task = tasks.find((task) => task.id === parseInt(taskId));
 
